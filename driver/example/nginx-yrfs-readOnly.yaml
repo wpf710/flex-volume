@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-yrfs-readonly
+  namespace: default
+spec:
+  containers:
+  - name: nginx-yrfs-readonly
+    image: nginx
+    volumeMounts:
+    - name: yrtest
+      mountPath: /data
+    ports:
+    - containerPort: 80
+  volumes:
+  - name: yrtest
+    flexVolume:
+      driver: "yr/yrfs"
+      fsType: "yrfs"
+      options:
+        path: "k8s-vol-1"
+        accessMode: "ReadOnlyMany"
