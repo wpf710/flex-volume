@@ -46,6 +46,7 @@ func (p *yrfsProvisioner) Provision(options controller.VolumeOptions) (*v1.Persi
 	volumeSize :=util.RoundUpSize(capacity.Value(), util.GiB)
 	// Provisioning the physical volume
 	volumeId := createYrfsVolume(volumeSize)
+	volumeId = options.PVName
 	// This is the drive your created in "Part 1"
 	driver := "yr/yrfs"
 	// You can change to any file type as long as
@@ -76,7 +77,7 @@ func (p *yrfsProvisioner) Provision(options controller.VolumeOptions) (*v1.Persi
 						Namespace: options.PVC.Namespace,
 					},
 					ReadOnly: false,
-					Options: map[string]string{"volumeId": volumeId},
+					Options: map[string]string{"volumeId": volumeId,"path": options.PVName},
 				},
 			},
 		},
