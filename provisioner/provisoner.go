@@ -1,6 +1,7 @@
 package main
 import (
 	"os"
+        "fmt"
 	"errors"
 	"github.com/golang/glog"
 	"k8s.io/api/core/v1"
@@ -77,7 +78,7 @@ func (p *yrfsProvisioner) Provision(options controller.VolumeOptions) (*v1.Persi
 						Namespace: options.PVC.Namespace,
 					},
 					ReadOnly: false,
-					Options: map[string]string{"volumeId": volumeId,"path": options.PVName},
+					Options: map[string]string{"volumeId": volumeId,"path": options.PVName, "storage": fmt.Sprintf("%d%s",volumeSize,"Gi")},
 				},
 			},
 		},
