@@ -103,11 +103,11 @@ unmount() {
 
 dodelete() {
     YRFS='/mnt/yrfs/kubernetes/'
-    MNTPATH=$1
+    KPATH=$1
     YRFS_PATH=${YRFS}${KPATH}
     rm -rf ${YRFS_PATH} &> /dev/null
     if [ $? -ne 0 ]; then
-		err "{ \"status\": \"Failed\", \"message\": \"Failed to unmount volume at ${MNTPATH}\"}"
+		err "{ \"status\": \"Failed\", \"message\": \"Failed to delete ${KPATH}\"}"
 		exit 1
 	fi
 
