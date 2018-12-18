@@ -16,3 +16,6 @@ import:
   subpackages:
   - kubernetes
   - rest
+- package: k8s.io/utils
+  subpackages:
+  - exec
