@@ -133,9 +133,14 @@ func (p *yrfsProvisioner) Delete(volume *v1.PersistentVolume) error {
 	volumeId := volume.Spec.PersistentVolumeSource.FlexVolume.Options["volumeId"]
 	glog.Infof("Received request to delete yrfs volume (ID: %s)\n", volumeId)
 	// delete the physical volume
-	err := p.deleteYrfsVolume(volumeId)
-	if err == nil {
-		glog.Infof("Successfully deleted yrfs volume (ID: %s)\n", volumeId)
+	if volumeId != "" {
+		err := p.deleteYrfsVolume(volumeId)
+		if err == nil {
+			glog.Infof("Successfully deleted yrfs volume (ID: %s)\n", volumeId)
+		}
+
+		return err
 	}
-	return err
+
+	return nil
 }
