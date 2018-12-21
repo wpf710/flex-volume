@@ -16,3 +16,19 @@ spec:
         - name: yrfs-provisioner
           image: yrfs-provisioner:latest
           imagePullPolicy: "IfNotPresent"
+          args:
+            - "-execCommandPath=/usr/libexec/kubernetes/kubelet-plugins/volume/exec/yr~yrfs/"
+            - "-timeout=10s"
+          volumeMounts:
+            - name: flexvolume-dir
+              mountPath: /usr/libexec/kubernetes/kubelet-plugins/volume/exec
+            - name: mnt-dir
+              mountPath: /mnt
+      volumes:
+        - name: flexvolume-dir
+          hostPath:
+            path: /usr/libexec/kubernetes/kubelet-plugins/volume/exec
+            type: DirectoryOrCreate
+        - name: mnt-dir
+          hostPath:
+            path: /mnt

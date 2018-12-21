@@ -101,6 +101,20 @@ unmount() {
 	exit 0
 }
 
+dodelete() {
+    YRFS='/mnt/yrfs/kubernetes/'
+    KPATH=$1
+    YRFS_PATH=${YRFS}${KPATH}
+    rm -rf ${YRFS_PATH} &> /dev/null
+    if [ $? -ne 0 ]; then
+		err "{ \"status\": \"Failed\", \"message\": \"Failed to delete ${KPATH}\"}"
+		exit 1
+	fi
+
+	log '{"status": "Success"}'
+    exit 0
+}
+
 op=$1
 
 if ! command -v jq >/dev/null 2>&1; then
@@ -126,6 +140,9 @@ case "$op" in
 	unmount)
 		unmount $*
 		;;
+	delete)
+	        dodelete $*
+	        ;;
 	*)
 		log '{"status": "Not supported"}'
 		exit 0

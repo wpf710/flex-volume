@@ -271,4 +271,8 @@ imports:
   - pkg/apis/core/helper
   - pkg/apis/core/v1/helper
   - pkg/util/version
+- name: k8s.io/utils
+  version: 0d26856f57b32ec3398579285e5c8a2bfe8c5243
+  subpackages:
+  - exec
 testImports: []
